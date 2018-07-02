@@ -31,16 +31,18 @@ public class FavouriteMoviesRepository {
     public void insert(FavouriteMovie favouriteMovie) {
         new insertAsyncTask(mFavouritiesDao).execute(favouriteMovie);
     }
+
+    public void deleteMovieByTitle(String title) {
+        new deleteAsyncTask(mFavouritiesDao).execute(title);
+    }
+    public void deleteMovieById(Integer id) {
+        new deleteAsyncTaskById(mFavouritiesDao).execute(id);
+    }
     public FavouriteMovie getMovieById(int id) {
-        return mFavouritiesDao.getMovieById(id);
+        new getMovieByIdAsync(mFavouritiesDao).execute(id);
+        return null;
     }
 
-    public void deleteMovieById(int id) {
-        mFavouritiesDao.deleteMovieById(id);
-    }
-    public void deleteMovieByTitle(String title) {
-        mFavouritiesDao.deleteMovieByTitle(title);
-    }
 
     public static class insertAsyncTask extends AsyncTask<FavouriteMovie, Void, Void> {
         private FavouritiesDao mAsyncTaskDao;
@@ -52,6 +54,53 @@ public class FavouriteMoviesRepository {
         @Override
         protected Void doInBackground(final FavouriteMovie... favouriteMovies) {
             mAsyncTaskDao.insert(favouriteMovies[0]);
+
+            return null;
+        }
+
+    }
+
+    public static class deleteAsyncTask extends AsyncTask<String, Void, Void> {
+        private FavouritiesDao mAsyncTaskDao;
+
+        deleteAsyncTask(FavouritiesDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final String... title) {
+            mAsyncTaskDao.deleteMovieByTitle(title[0]);
+
+            return null;
+        }
+    }
+
+    public static class deleteAsyncTaskById extends AsyncTask<Integer, Void, Void> {
+        private FavouritiesDao mAsyncTaskDao;
+
+        deleteAsyncTaskById(FavouritiesDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Integer... id) {
+            mAsyncTaskDao.deleteMovieById(id[0]);
+
+            return null;
+        }
+    }
+
+    public static class getMovieByIdAsync extends AsyncTask<Integer, Void, Void> {
+        private FavouritiesDao mAsyncTaskDao;
+
+        getMovieByIdAsync(FavouritiesDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Integer... id) {
+            mAsyncTaskDao.getMovieById(id[0]);
+
             return null;
         }
     }

@@ -24,7 +24,7 @@ public abstract class FavouriteMoviesRoomDatabase extends RoomDatabase {
             synchronized (FavouriteMoviesRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            FavouriteMoviesRoomDatabase.class, "favourites_database").addCallback(callback).allowMainThreadQueries().build();
+                            FavouriteMoviesRoomDatabase.class, "favourites_database").addCallback(callback).build();
                 }
             }
         }

@@ -26,8 +26,8 @@ public class FavouriteMoviesViewModel extends AndroidViewModel {
         mAllFavourites = moviesRepository.getAllFavourites();
     }
 
-    public FavouriteMovie getMovieById(int id) {
-        return moviesRepository.getMovieById(id);
+    public void getMovieById(int id) {
+         moviesRepository.getMovieById(id);
     }
 
     public void deleteMovieById(int id) {

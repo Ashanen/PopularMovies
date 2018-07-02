@@ -49,7 +49,6 @@ public class DetailsActivity extends AppCompatActivity {
     TextView moviePlot;
     TextView movieReleaseDate;
     TextView movieVoteAverage;
-    Button addToFavouritesButton;
     private Toolbar toolbar;
     public RecyclerView trailerRecyclerView;
     public RecyclerView reviewRecyclerView;
@@ -60,7 +59,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private FavouriteMoviesRepository repository;
     private FavouriteMovie favouriteMovie;
-    private FavouriteMoviesViewModel moviesViewModel;
+
 
 
     private int movieId;
@@ -109,19 +108,14 @@ public class DetailsActivity extends AppCompatActivity {
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         reviewRecyclerView.setItemAnimator(new DefaultItemAnimator());
         reviewRecyclerView.setAdapter(reviewsAdapter);
+
         reviewsAdapter.notifyDataSetChanged();
-
-
         getReviews();
         initMovieDetailTrailersView();
-
-
     }
 
 
     private void getDataFromIntent() {
-
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
