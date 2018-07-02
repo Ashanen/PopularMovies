@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">PopularMovies1</string>
+
+    <string name="order_by_top_rated">Top Rated</string>
+    <string name="order_by_most_popular">Most Popular</string>
+    <string name="order_by_favourites">Favourites</string>
+
+    <string name="api_key"></string>
+    <string name="sort">Sort</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="movie_overview">Movie Overview</string>
+    <string name="vote_average">Vote Average :</string>
+    <string name="release_date">Release Date :</string>
+    <string name="no_internet">There is no internet connectivity</string>
+    <string name="provide_api_key">Please provide your unique API KEY</string>
+
+    <string name="most_popular_key">Most Popular</string>
+    <string name="top_rated_key">Top Rated</string>
+    <string name="upcoming_key">Upcoming</string>
+    <string name="favourites_key">Favourites</string>
+
+    <string name="youtube_web_intent">https://www.youtube.com/watch?v=</string>
+    <string name="youtube_app_intent">vnd.youtube:</string>
+
+    <string name="TRAILER_ID_KEY">trailer</string>
+
+
+    <string name="trailer_thumbnail_image">Thumbnail Movie</string>
+    <string name="trailer_thumbnail_URL_part_one">http://img.youtube.com/vi/</string>
+    <string name="trailer_thumbnail_URL_part_two">/mqdefault.jpg</string>
+    <string name="added_favourites">Added to favourites</string>
+    <string name="removed_favourites">Removed from favourites</string>
+
+</resources>
