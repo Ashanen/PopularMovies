@@ -12,7 +12,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 
-@Database(entities = {FavouriteMovie.class}, version = 2)
+@Database(entities = {FavouriteMovie.class}, version = 3)
 public abstract class FavouriteMoviesRoomDatabase extends RoomDatabase {
 
     public abstract FavouritiesDao favouritiesDao();

@@ -169,10 +169,10 @@ public class DetailsActivity extends AppCompatActivity {
             checkboxFavourites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (movie_id_fromIntent != 0) {
-                        favouriteMovie = new FavouriteMovie(movie_name, movie_release_date, movie_poster, movie_rating, movie_synopsis, movie_backdrop_path, movie_id_fromIntent, true);
-                        repository.insert(favouriteMovie);
-                    }
+                        if(checkboxFavourites.isChecked()) {
+                            favouriteMovie = new FavouriteMovie(movie_name, movie_release_date, movie_poster, movie_rating, movie_synopsis, movie_backdrop_path);
+                            repository.insert(favouriteMovie);
+                        }
                     if (movie != null) {
                             if (movie.getOriginalTitle().equals(movie_name)) {
                                 repository.deleteMovieByTitle(movie_name);
