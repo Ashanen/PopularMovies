@@ -133,7 +133,6 @@ public class DetailsActivity extends AppCompatActivity {
             movie_id_fromIntent = bundle.getInt(ConstantValues.MOVIES_KEY);
 
 
-            //querying on main thread OMG
             final FavouriteMovie favmovieForCheckBox = repository.getMovieById(movie_id_fromIntent);
 
             if(favmovieForCheckBox!=null) {
