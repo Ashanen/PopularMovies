@@ -33,6 +33,9 @@ public class FavouriteMoviesViewModel extends AndroidViewModel {
     public void deleteMovieById(int id) {
         moviesRepository.deleteMovieById(id);
     }
+    public LiveData<FavouriteMovie> getMovieByTitle(String title) {
+        return moviesRepository.getMovieByTitle(title);
+    }
 
     public void deleteMovieByTitle(String title) {
         moviesRepository.deleteMovieByTitle(title);

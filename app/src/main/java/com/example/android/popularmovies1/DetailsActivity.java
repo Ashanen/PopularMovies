@@ -13,13 +13,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.popularmovies1.APIcontroler.APIclient;
 import com.example.android.popularmovies1.APIcontroler.IAPIforRetrofit;
+import com.example.android.popularmovies1.Adapters.FavouritesAdapter;
 import com.example.android.popularmovies1.Adapters.ReviewsAdapter;
 import com.example.android.popularmovies1.Adapters.TrailersAdapter;
 import com.example.android.popularmovies1.Database.FavouriteMovie;
@@ -59,11 +59,9 @@ public class DetailsActivity extends AppCompatActivity {
 
     private FavouriteMoviesRepository repository;
     private FavouriteMovie favouriteMovie;
+    FavouriteMoviesViewModel mViewModel;
 
-
-
-    private int movieId;
-
+    private FavouriteMovie movie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,17 +130,18 @@ public class DetailsActivity extends AppCompatActivity {
 
             movie_id_fromIntent = bundle.getInt(ConstantValues.MOVIES_KEY);
 
-
-            final FavouriteMovie favmovieForCheckBox = repository.getMovieById(movie_id_fromIntent);
-
-            if(favmovieForCheckBox!=null) {
-                movieId = favmovieForCheckBox.getId();
-                if ( movie_id_fromIntent == movieId) {
-                    checkboxFavourites.setChecked(true);
-                }
-            } else if (movie_id_fromIntent == 0) {
-                    checkboxFavourites.setChecked(true);
-                }
+            mViewModel = ViewModelProviders.of(this).get(FavouriteMoviesViewModel.class);
+            if (movie_name != null) {
+                mViewModel.getMovieByTitle(movie_name).observe(this, new Observer<FavouriteMovie>() {
+                    @Override
+                    public void onChanged(@Nullable FavouriteMovie favouriteMovie) {
+                        movie = favouriteMovie;
+                        if (movie != null) {
+                            checkboxFavourites.setChecked(true);
+                        }
+                    }
+                });
+            }
 
 
             String poster = ConstantValues.MOVIE_POSTER_PATH;
@@ -170,16 +169,15 @@ public class DetailsActivity extends AppCompatActivity {
             checkboxFavourites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(movie_id_fromIntent != 0) {
+                    if (movie_id_fromIntent != 0) {
                         favouriteMovie = new FavouriteMovie(movie_name, movie_release_date, movie_poster, movie_rating, movie_synopsis, movie_backdrop_path, movie_id_fromIntent, true);
-                        if(movie_id_fromIntent == movieId){
-                            repository.deleteMovieById(movieId);
-                        }else {
-                            repository.insert(favouriteMovie);
-                        }
-                    }else{
-                        repository.deleteMovieByTitle(movie_name);
+                        repository.insert(favouriteMovie);
                     }
+                    if (movie != null) {
+                            if (movie.getOriginalTitle().equals(movie_name)) {
+                                repository.deleteMovieByTitle(movie_name);
+                            }
+                        }
                 }
             });
         }

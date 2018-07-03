@@ -46,14 +46,16 @@ public class MainActivity extends AppCompatActivity {
     public RecyclerView recyclerView;
     private List<FavouriteMovie> favouriteMoviesNewList;
     private List<Movies> movieList = new ArrayList<>();
+    private Fragment selectedFragment;
+
+
+    private FavouritesAdapter moviesAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
-
         FavouriteMoviesViewModel favouriteMoviesViewModel =
                 ViewModelProviders.of(this).get(FavouriteMoviesViewModel.class);
 
@@ -62,8 +64,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<FavouriteMovie> favouriteMovies) {
                 favouriteMoviesNewList = favouriteMovies;
+                if(selectedFragment instanceof FavouritesFragment){
+                    openFavourites();
+                }
             }
         });
+
+        init();
     }
 
     public void getPopularMovies(String preferred) {
@@ -113,13 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openFavourites() {
         recyclerView = findViewById(R.id.recyclerView);
-        FavouritesAdapter moviesAdapter = new FavouritesAdapter(this, favouriteMoviesNewList);
-
-        if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
-        }
+        moviesAdapter = new FavouritesAdapter(this, favouriteMoviesNewList);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(moviesAdapter);
         moviesAdapter.notifyDataSetChanged();
@@ -131,11 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         MovieAdapter moviesAdapter = new MovieAdapter(movieList, this);
 
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
-        }
+        gridLayoutManagement();
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(moviesAdapter);
@@ -152,8 +149,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    private void gridLayoutManagement(){
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment selectedFragment = null;
+        selectedFragment = null;
 
         int movie_sort_type_id = item.getItemId();
 

@@ -1,6 +1,7 @@
 package com.example.android.popularmovies1.Database;
 
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -11,7 +12,9 @@ public class FavouriteMovie {
     @NonNull
     @PrimaryKey
     private int id;
+
     private String originalTitle;
+
     private String releaseDate;
     private String posterPath;
     private String voteAverage;

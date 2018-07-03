@@ -38,11 +38,14 @@ public class FavouriteMoviesRepository {
     public void deleteMovieById(Integer id) {
         new deleteAsyncTaskById(mFavouritiesDao).execute(id);
     }
-    public FavouriteMovie getMovieById(int id) {
+    public LiveData<FavouriteMovie> getMovieById(int id) {
         new getMovieByIdAsync(mFavouritiesDao).execute(id);
         return null;
     }
-
+    public LiveData<FavouriteMovie> getMovieByTitle(String title) {
+//        new getMovieByTitleAsync(mFavouritiesDao).execute(title);
+        return mFavouritiesDao.getMovieByTitle(title);
+    }
 
     public static class insertAsyncTask extends AsyncTask<FavouriteMovie, Void, Void> {
         private FavouritiesDao mAsyncTaskDao;
@@ -102,6 +105,25 @@ public class FavouriteMoviesRepository {
             mAsyncTaskDao.getMovieById(id[0]);
 
             return null;
+        }
+    }
+    public static class getMovieByTitleAsync extends AsyncTask<FavouriteMovie, Void, Void> {
+        private FavouritiesDao mAsyncTaskDao;
+
+        getMovieByTitleAsync(FavouritiesDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final FavouriteMovie... movie) {
+//            mAsyncTaskDao.getMovieByTitle(movie[0]);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
     }
 }

@@ -22,7 +22,10 @@ public interface FavouritiesDao {
     LiveData<List<FavouriteMovie>> getAllFavourites();
 
     @Query("SELECT * FROM favourite_movies_table WHERE id = :id")
-    FavouriteMovie getMovieById(int id);
+    LiveData<FavouriteMovie>  getMovieById(int id);
+
+    @Query("SELECT * FROM favourite_movies_table WHERE originalTitle = :title")
+    LiveData<FavouriteMovie> getMovieByTitle(String title);
 
     @Query("DELETE FROM favourite_movies_table WHERE id = :id")
     void deleteMovieById(int id);
